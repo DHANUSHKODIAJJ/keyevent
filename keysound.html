@@ -1,0 +1,86 @@
+<html>
+    <title>KEY SOUND</title>
+<style>
+    *{
+        background-color: black;
+    }
+    h1{
+        text-align: center;
+        color: chartreuse;
+    }
+    .key{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 90vh;
+        background-color: white;
+    }
+    .k{
+        width: 60px;
+        height: 50px;
+        background-color: chartreuse;
+        transition: 0.5s;
+    
+    }
+    .play{
+        transform: scale(2);
+        border:3px solid rgba(0,0,0,0.9);
+    }
+    
+    kbd ,span{
+        display: block;
+        background-color: chartreuse;
+        color: black;
+        font-size: 25px;
+        text-align: center;
+    }
+    span{
+        font-size: 15px;
+    }
+   
+</style>
+<body>
+    <h1>KEY PRESS PLAY SOUND MY NAME</h1>
+    <div class="key">
+        <div data-key="75" class="k">
+            <kbd>K</kbd>
+            <span>Knight</span>
+        </div>
+        <div data-key="79" class="k">
+            <kbd>O</kbd>
+            <span>OF</span>
+        </div>
+        <div data-key="68" class="k">
+            <kbd>D</kbd>
+            <span>Daring</span>
+        </div>
+        <div data-key="73" class="k">
+            <kbd>I</kbd>
+            <span>Ingenuity</span>
+        </div>
+
+    </div>
+    <audio data-key="75" src="media/mixkit-air-zoom-vacuum-2608.wav"></audio>
+    <audio data-key="79" src="media/mixkit-cinematic-whoosh-fast-transition-1492.wav"></audio>
+    <audio data-key="68" src="media/mixkit-fast-rocket-whoosh-1714.wav"></audio>
+    <audio data-key="73" src="media/mixkit-fast-small-sweep-transition-166.wav"></audio>
+</body>
+
+<script>
+        function sound(e){
+            const click = document.querySelector(`audio[data-key='${e.keyCode}']`);
+            const key =document.querySelector(`.k[data-key='${e.keyCode}']`)
+            if(!click)return;
+            click.currentTime=0
+            click.play()
+            key.classList.add("play")
+        }
+        function remove(e){
+            if(e.propertyName !== 'transform')
+            this.classList.remove("play")
+        }
+        const keys=document.querySelectorAll(".k")
+        keys.forEach(key=> key.addEventListener('transitionend',remove));
+        window.addEventListener("keydown",sound);
+</script>
+</html>
